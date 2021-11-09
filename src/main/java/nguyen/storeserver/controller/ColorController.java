@@ -1,0 +1,43 @@
+package nguyen.storeserver.controller;
+
+import nguyen.storeserver.dto.ResponseDTO;
+import nguyen.storeserver.entity.Color;
+import nguyen.storeserver.service.ColorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/color")
+public class ColorController {
+    private ColorService colorService;
+    @Autowired
+    public ColorController(ColorService colorService) {
+        this.colorService = colorService;
+    }
+    @GetMapping
+    public List<Color> getAllColor() {
+        return colorService.getAllColors();
+    }
+    @GetMapping(value = "/id")
+    public Color findColorById(@RequestParam Integer colorId) {
+        return colorService.findColorById(colorId);
+    }
+    @GetMapping(value = "/name")
+    public Color findColorByName(@RequestParam String colorName) {
+        return colorService.findColorByName(colorName);
+    }
+    @PostMapping(value = "/add")
+    public ResponseDTO addColor(@RequestBody String colorName){
+        ResponseDTO response = new ResponseDTO();
+        response = colorService.AddColor(colorName);
+        return response;
+    }
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseDTO deleteColor(@PathVariable(name = "id")Integer colorId){
+        ResponseDTO response = new ResponseDTO();
+        response = colorService.DeleteColor(colorId);
+        return response;
+    }
+}
