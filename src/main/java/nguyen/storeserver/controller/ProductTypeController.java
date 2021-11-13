@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/producttype")
@@ -21,7 +22,7 @@ public class ProductTypeController {
         return productTypeService.getAllProductTypes();
     }
     @GetMapping(value = "/id")
-    public ProductType findProductTypeById(@RequestParam Integer typeId) {
+    public Optional<ProductType> findProductTypeById(@RequestParam Integer typeId) {
         return productTypeService.findProductTypeById(typeId);
     }
     @GetMapping(value = "/name")

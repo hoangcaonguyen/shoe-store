@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/store")
@@ -22,7 +23,7 @@ public class StoreController {
         return storeService.getAllStore();
     }
     @GetMapping(value = "/id")
-    public Store findStoreById(@RequestParam Integer storeId){
+    public Optional<Store> findStoreById(@RequestParam Integer storeId){
         return storeService.findStoreById(storeId);
     }
     @GetMapping(value = "/name")

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StoreService {
@@ -22,8 +23,8 @@ public class StoreService {
     public List<Store> getAllStore() {
         return storeRepo.findAll();
     }
-    public Store findStoreById(Integer storeId) {
-        return storeRepo.getById(storeId);
+    public Optional<Store> findStoreById(Integer storeId) {
+        return storeRepo.findById(storeId);
     }
     public Store findStoreByName(String storeName){
         return storeRepo.getByStoreName(storeName);
@@ -34,29 +35,17 @@ public class StoreService {
     @Transactional
     public ResponseDTO AddStore(StoreDTO storeDTO){
         ResponseDTO responseDTO = new ResponseDTO();
-        try{
-            Store store = storeRepo.getByStoreName(storeDTO.getStoreName());
-            Assert.isNull(store, MessageUtils.getMessage("error.notfound",storeDTO.getStoreName()));
-            storeRepo.save(store);
-            return responseDTO;
-        }catch (IllegalArgumentException e){
-            responseDTO.setCode(1);
-            responseDTO.setMessage(e.getMessage());
-            return responseDTO;
-        }
+        Store store = storeRepo.getByStoreName(storeDTO.getStoreName());
+        Assert.isNull(store, MessageUtils.getMessage("error.notfound",storeDTO.getStoreName()));
+        storeRepo.save(store);
+        return responseDTO;
     }
     @Transactional
     public ResponseDTO DeleteStore(Integer storeId) {
         ResponseDTO responseDTO = new ResponseDTO();
-        try {
-            Store store = storeRepo.getById(storeId);
-            Assert.notNull(store, MessageUtils.getMessage("error.notfound",storeId));
-            storeRepo.delete(store);
-            return responseDTO;
-        }catch (IllegalArgumentException e){
-            responseDTO.setCode(1);
-            responseDTO.setMessage(e.getMessage());
-            return responseDTO;
-        }
+        Store store = storeRepo.getById(storeId);
+        Assert.notNull(store, MessageUtils.getMessage("error.notfound",storeId));
+        storeRepo.delete(store);
+        return responseDTO;
     }
 }

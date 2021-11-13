@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -20,8 +21,8 @@ public class RoleService {
     public List<Role> getAllRole() {
         return roleRepo.findAll();
     }
-    public Role findRoleById(Integer roleId) {
-        return roleRepo.getById(roleId);
+    public Optional<Role> findRoleById(Integer roleId) {
+        return roleRepo.findById(roleId);
     }
     public Role findRoleByName(String roleName){
         return roleRepo.getByRoleName(roleName);
@@ -43,15 +44,9 @@ public class RoleService {
     @Transactional
     public ResponseDTO DeleteRole(Integer roleId) {
         ResponseDTO responseDTO = new ResponseDTO();
-        try {
-            Role role = roleRepo.getById(roleId);
-            Assert.notNull(role, MessageUtils.getMessage("error.notfound",roleId));
-            roleRepo.delete(role);
-            return responseDTO;
-        }catch (IllegalArgumentException e){
-            responseDTO.setCode(1);
-            responseDTO.setMessage(e.getMessage());
-            return responseDTO;
-        }
+        Role role = roleRepo.getById(roleId);
+        Assert.notNull(role, MessageUtils.getMessage("error.notfound",roleId));
+        roleRepo.delete(role);
+        return responseDTO;
     }
 }

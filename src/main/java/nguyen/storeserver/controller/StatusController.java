@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/status")
@@ -21,7 +22,7 @@ public class StatusController {
         return statusService.getAllStatus();
     }
     @GetMapping(value = "/id")
-    public Status findStatusById(@RequestParam Integer statusId) {
+    public Optional<Status> findStatusById(@RequestParam Integer statusId) {
         return statusService.findStatusById(statusId);
     }
     @GetMapping(value = "/name")

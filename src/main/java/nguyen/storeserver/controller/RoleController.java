@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/role")
@@ -21,7 +22,7 @@ public class RoleController {
         return roleService.getAllRole();
     }
     @GetMapping(value = "/id")
-    public Role findRoleById(@RequestParam Integer roleId) {
+    public Optional<Role> findRoleById(@RequestParam Integer roleId) {
         return roleService.findRoleById(roleId);
     }
     @GetMapping(value = "/name")
