@@ -95,9 +95,8 @@ public class UserService {
         ResponseDTO responseDTO = new ResponseDTO();
         User user = userRepo.getById(id);
         Assert.notNull(user, MessageUtils.getMessage("error.notfound",id));
-        if(user.getRoleId().equals(2)){
-
-        }
+        user.setStatus(0);
+        userRepo.save(user);
         return responseDTO;
     }
 }

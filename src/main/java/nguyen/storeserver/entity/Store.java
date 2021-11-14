@@ -18,4 +18,6 @@ public class Store {
     private String storeName;
     @Column(name = "store_address")
     private String storeAddress;
+    @Column(name = "status")
+    private Integer status;
 }

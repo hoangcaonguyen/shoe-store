@@ -23,9 +23,11 @@ public class Item {
     @Column(name = "num_items")
     private int numItems;
     @Column(name = "type_id")
-    private int typeId;
+    private Integer typeId;
     @Column(name = "store_id")
     private Integer storeId;
     @Column(name = "sale")
     private int sale;
+    @Column(name = "status")
+    private Integer status;
 }

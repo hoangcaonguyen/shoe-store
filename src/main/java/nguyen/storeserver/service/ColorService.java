@@ -50,7 +50,7 @@ public class ColorService {
         List<Item> items = itemRepo.getByColorId(colorId);
         for(Item i : items){
             i.setColorId(1);
-            itemRepo.update(i);
+            itemRepo.save(i);
         }
         colorRepo.delete(color);
         return responseDTO;

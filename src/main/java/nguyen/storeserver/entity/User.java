@@ -32,4 +32,6 @@ public class User {
     private Integer roleId;
     @Column(name = "store_id")
     private Integer storeId;
+    @Column(name = "status")
+    private Integer status;
 }
