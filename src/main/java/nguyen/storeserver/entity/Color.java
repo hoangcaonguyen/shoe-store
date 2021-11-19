@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Color")
 public class Color {
     @Id
@@ -15,20 +17,6 @@ public class Color {
     private Integer colorId;
     @Column(name = "color_name")
     private String colorName;
-
-    public Integer getColorId() {
-        return colorId;
-    }
-
-    public void setColorId(Integer colorId) {
-        this.colorId = colorId;
-    }
-
-    public String getColorName() {
-        return colorName;
-    }
-
-    public void setColorName(String colorName) {
-        this.colorName = colorName;
-    }
+    @Column(name = "status")
+    private Integer status;
 }

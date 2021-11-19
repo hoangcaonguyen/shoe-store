@@ -20,10 +20,17 @@ public class ColorController {
     }
 
     @GetMapping
+    public List<Color> getAvailableColors() {
+        return colorService.getAllColorActive();
+    }
+    @GetMapping(value = "/allcolor")
     public List<Color> getAllColor() {
         return colorService.getAllColors();
     }
-
+    @GetMapping(value = "/colordeleted")
+    public List<Color> getUnAvailableColors() {
+        return colorService.getAllColorsUnActive();
+    }
     @GetMapping(value = "/id")
     public Optional<Color> findColorById(@RequestParam Integer colorId) {
         return colorService.findColorById(colorId);

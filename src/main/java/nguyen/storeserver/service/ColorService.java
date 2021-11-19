@@ -28,6 +28,12 @@ public class ColorService {
     public List<Color> getAllColors() {
         return colorRepo.findAll();
     }
+    public List<Color> getAllColorActive() {
+        return colorRepo.getByStatus(1);
+    }
+    public List<Color> getAllColorsUnActive() {
+        return colorRepo.getByStatus(0);
+    }
     public Optional<Color> findColorById(Integer colorId) {
         return colorRepo.findById(colorId);
     }
@@ -49,7 +55,7 @@ public class ColorService {
         Assert.notNull(color, MessageUtils.getMessage("error.notfound",colorId));
         List<Item> items = itemRepo.getByColorId(colorId);
         for(Item i : items){
-            i.setColorId(1);
+            i.setStatus(0);
             itemRepo.save(i);
         }
         colorRepo.delete(color);

@@ -24,4 +24,6 @@ public class Product {
     private Integer updaterId;
     @Column(name = "update_time")
     private String updateTime;
+    @Column(name = "status")
+    private Integer status;
 }

@@ -16,4 +16,6 @@ public class ProductType {
     private Integer typeId;
     @Column(name = "type_name")
     private String typeName;
+    @Column(name = "status")
+    private Integer status;
 }

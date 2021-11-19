@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "Status")
-public class Status {
+@Table(name = "Process")
+public class Process {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "status_id")
-    private Integer statusId;
-    @Column(name = "status_name")
-    private String statusName;
+    @Column(name = "process_id")
+    private Integer processId;
+    @Column(name = "process_name")
+    private String processName;
 }

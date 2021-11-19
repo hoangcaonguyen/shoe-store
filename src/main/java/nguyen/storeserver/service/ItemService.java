@@ -32,7 +32,8 @@ public class ItemService {
     }
     public List<Item> getAllItemsActive() {
         return itemRepo.getByStatus(1);
-    }public List<Item> getAllItemsUnActive() {
+    }
+    public List<Item> getAllItemsUnActive() {
         return itemRepo.getByStatus(0);
     }
     public Optional<Item> findById(Integer itemId) {
@@ -60,37 +61,37 @@ public class ItemService {
         return itemRepo.getBySale(sale);
     }
     @Transactional
-        public ResponseDTO AddItem (ItemDTO itemDTO){
-            ResponseDTO responseDTO = new ResponseDTO();
-            Item item = new Item();
-            Assert.notNull(productRepo.getByProductName(itemDTO.getProductName()),
-                    MessageUtils.getMessage("error.notfound",itemDTO.getProductName()));
-            Assert.notNull(colorRepo.getByColorName(itemDTO.getColorName()),
-                    MessageUtils.getMessage("error.notfound",itemDTO.getColorName()));
-            Assert.notNull(productTypeRepo.getByTypeName(itemDTO.getType()),
-                    MessageUtils.getMessage("error.notfound",itemDTO.getType()));
-            Assert.notNull(storeRepo.getByStoreName(itemDTO.getStoreName()),
-                    MessageUtils.getMessage("error.notfound",itemDTO.getStoreName()));
-            List<Item> items = itemRepo.getByProductIdAndColorIdAndTypeIdAndStoreId(
-                    productRepo.getByProductName(itemDTO.getProductName()).getProductId(),
-                    colorRepo.getByColorName(itemDTO.getColorName()).getColorId(),
-                    productTypeRepo.getByTypeName(itemDTO.getType()).getTypeId(),
-                    storeRepo.getByStoreName(itemDTO.getStoreName()).getStoreId()
-            );
-            if(items == null){
-                setItem(itemDTO, item);
-            }else {
-                for(Item i : items){
-                    if(i.getStatus().equals(1)){
-                        Assert.isTrue(itemDTO.getSize()!=i.getSize(),MessageUtils.getMessage("error.input.exist",itemDTO.getSize()));
-                        setItem(itemDTO, item);
-                    }else if (i.getStatus().equals(0)){
-                        setItem(itemDTO, item);
-                    }
+    public ResponseDTO AddItem (ItemDTO itemDTO){
+        ResponseDTO responseDTO = new ResponseDTO();
+        Item item = new Item();
+        Assert.notNull(productRepo.getByProductName(itemDTO.getProductName()),
+                MessageUtils.getMessage("error.notfound",itemDTO.getProductName()));
+        Assert.notNull(colorRepo.getByColorName(itemDTO.getColorName()),
+                MessageUtils.getMessage("error.notfound",itemDTO.getColorName()));
+        Assert.notNull(productTypeRepo.getByTypeName(itemDTO.getType()),
+                MessageUtils.getMessage("error.notfound",itemDTO.getType()));
+        Assert.notNull(storeRepo.getByStoreName(itemDTO.getStoreName()),
+                MessageUtils.getMessage("error.notfound",itemDTO.getStoreName()));
+        List<Item> items = itemRepo.getByProductIdAndColorIdAndTypeIdAndStoreId(
+                productRepo.getByProductName(itemDTO.getProductName()).getProductId(),
+                colorRepo.getByColorName(itemDTO.getColorName()).getColorId(),
+                productTypeRepo.getByTypeName(itemDTO.getType()).getTypeId(),
+                storeRepo.getByStoreName(itemDTO.getStoreName()).getStoreId()
+        );
+        if(items == null){
+            setItem(itemDTO, item);
+        }else {
+            for(Item i : items){
+                if(i.getStatus().equals(1)){
+                    Assert.isTrue(itemDTO.getSize()!=i.getSize(),MessageUtils.getMessage("error.input.exist",itemDTO.getSize()));
+                    setItem(itemDTO, item);
+                }else if (i.getStatus().equals(0)){
+                    setItem(itemDTO, item);
                 }
             }
-            return responseDTO;
         }
+        return responseDTO;
+    }
 
     public void setItem(ItemDTO itemDTO, Item item) {
         item.setProductId(productRepo.getByProductName(itemDTO.getProductName()).getProductId());
@@ -104,12 +105,20 @@ public class ItemService {
     }
 
     @Transactional
-        public ResponseDTO DeleteItem(Integer itemId) {
-            ResponseDTO responseDTO = new ResponseDTO();
-            Item item = itemRepo.getById(itemId);
-            Assert.notNull(item, MessageUtils.getMessage("error.notfound",itemId));
-            item.setStatus(0);
-            itemRepo.save(item);
-            return responseDTO;
-        }
+    public ResponseDTO DeleteItem(Integer itemId) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        Item item = itemRepo.getById(itemId);
+        Assert.notNull(item, MessageUtils.getMessage("error.notfound",itemId));
+        item.setStatus(0);
+        itemRepo.save(item);
+        return responseDTO;
+    }
+    @Transactional
+    public ResponseDTO UpdateItem(ItemDTO itemDTO){
+        ResponseDTO responseDTO = new ResponseDTO();
+        Item item = itemRepo.getById(itemDTO.getItemId());
+        Assert.notNull(item, MessageUtils.getMessage("error.notfound",itemDTO.getItemId()));
+        setItem(itemDTO, item);
+        return responseDTO;
+    }
 }

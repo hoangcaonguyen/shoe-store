@@ -23,8 +23,8 @@ public class PurchaseOrder {
     private int purchaseQuantity;
     @Column(name = "store_id")
     private Integer storeId;
-    @Column(name = "status_id")
-    private Integer statusId;
+    @Column(name = "process_id")
+    private Integer processId;
     @Column(name = "create_time")
     private String createTime;
     @Column(name = "money")

@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemDTO {
+    private Integer itemId;
     private String productName;
     private String colorName;
     private int size;

@@ -10,13 +10,17 @@ import java.util.List;
 
 public interface PurchaseOrderRepo extends JpaRepository<PurchaseOrder, Integer> {
     List<PurchaseOrder> getByIdUser (Integer idUser);
+    @Query("select o from PurchaseOrder o where o.idUser in (SELECT id FROM User where roleId = 4 and fullName =: user)")
+    List<PurchaseOrder> getByUser (String user);
     List<PurchaseOrder> getByIdStaff (Integer idStaff);
+    @Query("select o from PurchaseOrder o where o.idStaff in (SELECT id FROM User where (roleId = 2 or roleId =3 ) and fullName =: user)")
+    List<PurchaseOrder> getByStaff (String staff);
     List<PurchaseOrder> getByItemId (Integer itemId);
     List<PurchaseOrder> getByStoreId (Integer storeId);
     @Query("select o from PurchaseOrder o where o.storeId in (SELECT storeId FROM Store where storeName =: store)")
-    List<Item> getByStore (String Store);
-    List<PurchaseOrder> getByStatusId (Integer statusId);
-    @Query("select o from PurchaseOrder o where o.statusId in (SELECT statusId FROM Status where statusName =: status)")
-    List<Item> getByStatus (String Status);
+    List<PurchaseOrder> getByStore (String Store);
+    List<PurchaseOrder> getByProcessId (Integer processId);
+    @Query("select o from PurchaseOrder o where o.processId in (SELECT processId FROM Process where processName =: process)")
+    List<PurchaseOrder> getByProcess (String process);
     PurchaseOrder getByCreateTime (LocalDateTime createTime);
 }
