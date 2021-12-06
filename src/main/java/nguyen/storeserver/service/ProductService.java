@@ -1,6 +1,6 @@
 package nguyen.storeserver.service;
 
-import nguyen.storeserver.comon.MessageUtils;
+import nguyen.storeserver.common.MessageUtils;
 import nguyen.storeserver.dto.ProductDTO;
 import nguyen.storeserver.dto.ResponseDTO;
 import nguyen.storeserver.entity.Product;

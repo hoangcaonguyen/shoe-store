@@ -1,4 +1,4 @@
-package nguyen.storeserver.comon;
+package nguyen.storeserver.common;
 
 public class Const {
     public static String chuoi = "a";

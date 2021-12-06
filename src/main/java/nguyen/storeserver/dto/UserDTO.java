@@ -1,14 +1,14 @@
-package nguyen.storeserver.dto.UserDTO;
+package nguyen.storeserver.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import nguyen.storeserver.comon.Const;
-import nguyen.storeserver.comon.DataUtils;
+import nguyen.storeserver.common.Const;
+import nguyen.storeserver.common.DataUtils;
 import org.springframework.util.Assert;
 
 @Getter
 @Setter
-public class CreateUsesDTO {
+public class UserDTO {
     private String userName;
     private String passWord;
     private String reTypePassword;
@@ -19,6 +19,7 @@ public class CreateUsesDTO {
     private String email;
     private String role;
     private String store;
+    private Integer status;
 
     public void validate(){
 //        Assert.isTrue(DataUtils.matchByPattern(phoneNumber, Const.REGEX_PHONE_NUBBER),"Sai Đinh dạng");

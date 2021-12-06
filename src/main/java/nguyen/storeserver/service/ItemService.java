@@ -1,6 +1,6 @@
 package nguyen.storeserver.service;
 
-import nguyen.storeserver.comon.MessageUtils;
+import nguyen.storeserver.common.MessageUtils;
 import nguyen.storeserver.dto.ItemDTO;
 import nguyen.storeserver.dto.ResponseDTO;
 import nguyen.storeserver.entity.Item;
@@ -77,6 +77,7 @@ public class ItemService {
                 colorRepo.getByColorName(itemDTO.getColorName()).getColorId(),
                 productTypeRepo.getByTypeName(itemDTO.getType()).getTypeId(),
                 storeRepo.getByStoreName(itemDTO.getStoreName()).getStoreId()
+
         );
         if(items == null){
             setItem(itemDTO, item);
