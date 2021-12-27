@@ -14,7 +14,6 @@ import java.util.Optional;
 @RequestMapping(value = "/store")
 public class StoreController {
     private StoreService storeService;
-    @Autowired
     public StoreController(StoreService storeService){
         this.storeService = storeService;
     }

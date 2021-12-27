@@ -1,19 +1,19 @@
 package nguyen.storeserver.controller;
 
-import nguyen.storeserver.dto.AuthenticationRequestDTO;
-import nguyen.storeserver.dto.JWTResponseDTO;
+//import nguyen.storeserver.dto.AuthenticationRequestDTO;
+//import nguyen.storeserver.dto.JWTResponseDTO;
 import nguyen.storeserver.dto.ResponseDTO;
 import nguyen.storeserver.dto.UserDTO;
 import nguyen.storeserver.entity.User;
-import nguyen.storeserver.jwt.JWTTokenComponent;
-import nguyen.storeserver.jwt.JWTUserDetailsService;
+//import nguyen.storeserver.jwt.JWTTokenComponent;
+//import nguyen.storeserver.jwt.JWTUserDetailsService;
 import nguyen.storeserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -25,24 +25,24 @@ import java.util.Optional;
 public class UserController {
     private UserService userService;
 //    @Autowired
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
-    private AuthenticationManager authenticationManager;
-    private JWTUserDetailsService jwtUserDetailsService;
-    private JWTTokenComponent jwtTokenComponent;
-    private BCryptPasswordEncoder passwordEncoder;
-
-    public UserController(UserService userService, AuthenticationManager authenticationManager,
-                          JWTUserDetailsService jwtUserDetailsService,
-                          JWTTokenComponent jwtTokenComponent,
-                          BCryptPasswordEncoder passwordEncoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
-        this.jwtUserDetailsService = jwtUserDetailsService;
-        this.jwtTokenComponent = jwtTokenComponent;
-        this.passwordEncoder = passwordEncoder;
     }
+//    private AuthenticationManager authenticationManager;
+//    private JWTUserDetailsService jwtUserDetailsService;
+//    private JWTTokenComponent jwtTokenComponent;
+//    private BCryptPasswordEncoder passwordEncoder;
+//
+//    public UserController(UserService userService, AuthenticationManager authenticationManager,
+//                          JWTUserDetailsService jwtUserDetailsService,
+//                          JWTTokenComponent jwtTokenComponent,
+//                          BCryptPasswordEncoder passwordEncoder) {
+//        this.userService = userService;
+//        this.authenticationManager = authenticationManager;
+//        this.jwtUserDetailsService = jwtUserDetailsService;
+//        this.jwtTokenComponent = jwtTokenComponent;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -83,7 +83,7 @@ public class UserController {
     @PostMapping(value = "/add")
     public ResponseDTO addUser(@RequestBody UserDTO userDTO) {
         ResponseDTO response = new ResponseDTO();
-        encryptPassword(userDTO);
+//        encryptPassword(userDTO);
         response = userService.AddUser(userDTO);
         return response;
     }
@@ -93,18 +93,18 @@ public class UserController {
         response = userService.DeleteUser(id);
         return response;
     }
-    @PostMapping("/authenticate")
-    public ResponseEntity<JWTResponseDTO> authenticate(@RequestBody AuthenticationRequestDTO dto) {
-        authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
-        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(dto.getUsername());
-        String token = jwtTokenComponent.generateToken(userDetails);
-        return ResponseEntity.ok(new JWTResponseDTO(token));
-    }
-    private void encryptPassword(UserDTO user) {
-        String rawPassword = user.getPassWord();
-        if (rawPassword != null) {
-            user.setPassWord(passwordEncoder.encode(rawPassword));
-        }
-    }
+//    @PostMapping("/authenticate")
+//    public ResponseEntity<JWTResponseDTO> authenticate(@RequestBody AuthenticationRequestDTO dto) {
+//        authenticationManager
+//                .authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
+//        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(dto.getUsername());
+//        String token = jwtTokenComponent.generateToken(userDetails);
+//        return ResponseEntity.ok(new JWTResponseDTO(token));
+//    }
+//    private void encryptPassword(UserDTO user) {
+//        String rawPassword = user.getPassWord();
+//        if (rawPassword != null) {
+//            user.setPassWord(passwordEncoder.encode(rawPassword));
+//        }
+//    }
 }
